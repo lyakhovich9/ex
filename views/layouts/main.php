@@ -28,7 +28,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <link rel="stylesheet" href="style.css">
     <style>
         .logo {
-    height: 50px !important;
+    height: 40px !important;
         }
         .bg-dark {
     background-color: rgb(239, 179, 100) !important; 
@@ -67,11 +67,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ? ['label' => 'Заявления', 'url' => ['/report/index']]
                 : '<li class="nav-item">',
             Yii::$app->user->isGuest
-                ? ['label' => 'Войти', 'url' => ['/site/login']]
+                ? ['label' => 'Вход', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
                     . Html::beginForm(['/site/logout'])
                     . Html::submitButton(
-                        'Выйти (' . Yii::$app->user->identity->login . ')',
+                        'Выход (' . Yii::$app->user->identity->login . ')',
                         ['class' => 'nav-link btn btn-link logout']
                     )
                     . Html::endForm()
@@ -107,7 +107,19 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 </ul>
             </div>
             <div class="col-md-6 text-center text-md-end">
-
+            <div class="col-md-6 text-center text-md-start">
+                <ul>
+                    <li>
+                    <a href="/site/index">Главная</a>
+                    </li>
+                    <li>
+                    <a href="/site/register">Регистрация</a>
+                    </li>
+                    <li>
+                    <a href="/site/login">Вход</a>
+                    </li>
+                </ul>
+            </div>
             </div>
         </div>
     </div>
