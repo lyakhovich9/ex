@@ -52,4 +52,6 @@ class Status extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Report::class, ['status_id' => 'id']);
     }
+
+    
 }
