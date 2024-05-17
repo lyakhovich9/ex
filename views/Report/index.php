@@ -10,7 +10,7 @@ use yii\widgets\Pjax;
 /** @var app\models\ReportSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Reports';
+$this->title = 'Заявления';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="report-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Report', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать заявление', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(); ?>

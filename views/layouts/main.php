@@ -25,6 +25,26 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .logo {
+    height: 50px !important;
+        }
+        .bg-dark {
+    background-color: rgb(239, 179, 100) !important; 
+} 
+
+.bg-light {
+    background-color: rgb(239, 179, 100) !important; 
+}
+
+.btn-success {
+    background-color: rgb(221, 140, 140) !important;
+}
+.main > container {
+    margin-top: 30px;
+}
+    </style>
 </head>
 <body class="d-flex flex-column h-100">
 <?php $this->beginBody() ?>
@@ -32,7 +52,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <header id="header">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => HTML::img('@web/images/logo.png', ['class'=>'logo', 'alt'=>'Логотип']),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
@@ -40,8 +60,12 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Главная', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Регситрация', 'url' => ['/site/contact']],
+            Yii::$app->user->isGuest
+                ? ['label' => 'Регистрация', 'url' => ['/site/register']]
+                : ['label' => 'Заявления', 'url' => ['/report/index']],
+            !Yii::$app->user->isGuest && !Yii::$app->user->identity->isAdmin()
+                ? ['label' => 'Заявления', 'url' => ['/report/index']]
+                : '<li class="nav-item">',
             Yii::$app->user->isGuest
                 ? ['label' => 'Войти', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
@@ -71,8 +95,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <footer id="footer" class="mt-auto py-3 bg-light">
     <div class="container">
         <div class="row text-muted">
-            <div class="col-md-6 text-center text-md-start">&copy; My Company <?= date('Y') ?></div>
-            <div class="col-md-6 text-center text-md-end"><?= Yii::powered() ?></div>
+            <div class="col-md-6 text-center text-md-start">
+                <p>Контактные данные:</p>
+                <ul>
+                    <li>
+                    +7 (999) 888 33-22
+                    </li>
+                    <li>
+                    support@narusheniyam.net
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+
+            </div>
         </div>
     </div>
 </footer>

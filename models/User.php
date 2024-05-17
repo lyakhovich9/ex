@@ -35,7 +35,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return [
             [['role_id'], 'integer'],
-            [['login', 'password', 'email', 'phone', 'fio'], 'string', 'max' => 255],
+            [['login', 'password', 'email', 'phone', 'fio'], 'required', 'message'=>'Заполните поле'],
+            [['email'],'email', 'message'=> 'Email введен некорректно'],
+            [['phone'], 'string', 'min' => 11, 'max'=>11, 'tooShort'=>'Номер телефона сликшом короткий', 'tooLong'=>'Номер телефона сликшом длинный'],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
         ];
     }
@@ -48,6 +50,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return [
             'login' => 'Логин',
             'password' => 'Пароль',
+            'password_confirmation' => 'Повторите пароль',  
             'email' => 'Email',
             'phone' => 'Телефон',
             'fio' => 'ФИО',
@@ -132,5 +135,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return $this->password === $password;
     }
 
+    public function __toString() {
+        return $this->login;
+    }
+
+    public static function getInstance() {
+        return Yii::$app->user->identity;
+    }
+
+    public function isAdmin(){
+        return $this->role_id === Role::ADMIN_ROLE;
+    }
     
 }
